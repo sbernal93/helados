@@ -159,68 +159,124 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        if (0 === strpos($pathinfo, '/helados')) {
-            // app_helado_gethelados
-            if ($pathinfo === '/helados') {
-                return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getHeladosAction',  '_route' => 'app_helado_gethelados',);
-            }
-
-            // app_helado_deletehelado
-            if (0 === strpos($pathinfo, '/helados/delete') && preg_match('#^/helados/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_deletehelado')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::deleteHeladoAction',));
-            }
-
-            // app_helado_createhelado
-            if ($pathinfo === '/helados/create') {
-                return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::createHeladoAction',  '_route' => 'app_helado_createhelado',);
-            }
-
-            // app_helado_newhelado
-            if ($pathinfo === '/helados/new') {
-                if ($this->context->getMethod() != 'POST') {
-                    $allow[] = 'POST';
-                    goto not_app_helado_newhelado;
+        if (0 === strpos($pathinfo, '/h')) {
+            if (0 === strpos($pathinfo, '/helados')) {
+                // app_helado_gethelados
+                if ($pathinfo === '/helados') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getHeladosAction',  '_route' => 'app_helado_gethelados',);
                 }
 
-                return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::newHeladoAction',  '_route' => 'app_helado_newhelado',);
-            }
-            not_app_helado_newhelado:
+                // app_helado_deletehelado
+                if (0 === strpos($pathinfo, '/helados/delete') && preg_match('#^/helados/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_deletehelado')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::deleteHeladoAction',));
+                }
 
-            // app_helado_getedithelado
+                // app_helado_createhelado
+                if ($pathinfo === '/helados/create') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::createHeladoAction',  '_route' => 'app_helado_createhelado',);
+                }
+
+                // app_helado_newhelado
+                if ($pathinfo === '/helados/new') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_app_helado_newhelado;
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::newHeladoAction',  '_route' => 'app_helado_newhelado',);
+                }
+                not_app_helado_newhelado:
+
+                // app_helado_getedithelado
+                if (0 === strpos($pathinfo, '/helados/edit') && preg_match('#^/helados/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_getedithelado')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getEditHeladoAction',));
+                }
+
+                // app_helado_edithelado
+                if ($pathinfo === '/helados/update') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_app_helado_edithelado;
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::editHeladoAction',  '_route' => 'app_helado_edithelado',);
+                }
+                not_app_helado_edithelado:
+
+                // app_helado_getcrearpromocion
+                if (preg_match('#^/helados/(?P<id>[^/]++)/promocion/create$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_getcrearpromocion')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getCrearPromocionAction',));
+                }
+
+                // app_helado_getnewpromocion
+                if (preg_match('#^/helados/(?P<id>[^/]++)/promocion/new$#s', $pathinfo, $matches)) {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_app_helado_getnewpromocion;
+                    }
+
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_getnewpromocion')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getNewPromocionAction',));
+                }
+                not_app_helado_getnewpromocion:
+
+                // app_helado_gethelado
+                if (preg_match('#^/helados/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_gethelado')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getHeladoAction',));
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/historias')) {
+                // app_historia_gethistorias
+                if ($pathinfo === '/historias') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\HistoriaController::getHistoriasAction',  '_route' => 'app_historia_gethistorias',);
+                }
+
+                // app_historia_deletehistoria
+                if (0 === strpos($pathinfo, '/historias/delete') && preg_match('#^/historias/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_historia_deletehistoria')), array (  '_controller' => 'AppBundle\\Controller\\HistoriaController::deleteHistoriaAction',));
+                }
+
+                // app_historia_createhistoria
+                if ($pathinfo === '/historias/create') {
+                    return array (  '_controller' => 'AppBundle\\Controller\\HistoriaController::createHistoriaAction',  '_route' => 'app_historia_createhistoria',);
+                }
+
+                // app_historia_newhistoria
+                if ($pathinfo === '/historias/new') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_app_historia_newhistoria;
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\HistoriaController::newHistoriaAction',  '_route' => 'app_historia_newhistoria',);
+                }
+                not_app_historia_newhistoria:
+
+            }
+
+            // app_historia_getedithistoria
             if (0 === strpos($pathinfo, '/helados/edit') && preg_match('#^/helados/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_getedithelado')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getEditHeladoAction',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_historia_getedithistoria')), array (  '_controller' => 'AppBundle\\Controller\\HistoriaController::getEditHistoriaAction',));
             }
 
-            // app_helado_edithelado
-            if ($pathinfo === '/helados/update') {
-                if ($this->context->getMethod() != 'POST') {
-                    $allow[] = 'POST';
-                    goto not_app_helado_edithelado;
+            if (0 === strpos($pathinfo, '/historias')) {
+                // app_historia_edithistoria
+                if ($pathinfo === '/historias/update') {
+                    if ($this->context->getMethod() != 'POST') {
+                        $allow[] = 'POST';
+                        goto not_app_historia_edithistoria;
+                    }
+
+                    return array (  '_controller' => 'AppBundle\\Controller\\HistoriaController::editHistoriaAction',  '_route' => 'app_historia_edithistoria',);
+                }
+                not_app_historia_edithistoria:
+
+                // app_historia_gethistoria
+                if (preg_match('#^/historias/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_historia_gethistoria')), array (  '_controller' => 'AppBundle\\Controller\\HistoriaController::getHistoriaAction',));
                 }
 
-                return array (  '_controller' => 'AppBundle\\Controller\\HeladoController::editHeladoAction',  '_route' => 'app_helado_edithelado',);
-            }
-            not_app_helado_edithelado:
-
-            // app_helado_getcrearpromocion
-            if (preg_match('#^/helados/(?P<id>[^/]++)/promocion/create$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_getcrearpromocion')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getCrearPromocionAction',));
-            }
-
-            // app_helado_getnewpromocion
-            if (preg_match('#^/helados/(?P<id>[^/]++)/promocion/new$#s', $pathinfo, $matches)) {
-                if ($this->context->getMethod() != 'POST') {
-                    $allow[] = 'POST';
-                    goto not_app_helado_getnewpromocion;
-                }
-
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_getnewpromocion')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getNewPromocionAction',));
-            }
-            not_app_helado_getnewpromocion:
-
-            // app_helado_gethelado
-            if (preg_match('#^/helados/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'app_helado_gethelado')), array (  '_controller' => 'AppBundle\\Controller\\HeladoController::getHeladoAction',));
             }
 
         }

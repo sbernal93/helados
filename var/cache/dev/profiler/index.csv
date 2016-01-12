@@ -769,3 +769,9 @@ a51502,127.0.0.1,GET,http://localhost:8000/directores/create,1452549662,,200
 266881,127.0.0.1,GET,http://localhost:8000/sucursales,1452550296,,200
 abbb74,127.0.0.1,GET,http://localhost:8000/sucursales/2,1452550304,,200
 4f0bec,127.0.0.1,GET,http://localhost:8000/sucursales/edit/2,1452550316,,200
+d6d851,127.0.0.1,GET,http://localhost:8000/historia,1452604624,9010fe,200
+9010fe,127.0.0.1,GET,http://localhost:8000/historia,1452604624,,404
+45d1f2,127.0.0.1,GET,http://localhost:8000/historia,1452604644,143e38,200
+143e38,127.0.0.1,GET,http://localhost:8000/historia,1452604644,,404
+913988,127.0.0.1,GET,http://localhost:8000/sucursales/2,1452604647,,200
+a3d8bf,127.0.0.1,GET,http://localhost:8000/historias,1452604649,,200

@@ -1,0 +1,52 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Historia {% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+
+    <!-- TABLE: LATEST ORDERS -->
+    <div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Historia</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+    <div class="table-responsive">
+        <table class="table no-margin">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Evento</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for historia in historias %}
+                <tr>
+                    <td><a href="historias/{{ historia.hi_id }}">{{ historia.hi_id }}</a></td>
+                    <td>{{ historia.hi_fecha }}</td>
+                    <td><span class="">{{ historia.hi_evento }}</span></td>
+
+                    <td>
+                        <a href="/historias/edit/{{ historia.hi_id }}" type="submit" class="btn btn-primary">Editar</a>
+                        <a href="/historias/delete/{{ historia.hi_id }}" type="submit" class="btn btn-danger  ">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="box-footer">
+            <div class="col-md-1">
+                <a href="/historias/create" type="submit" class="btn btn-primary">Crear Nuevo</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.table-responsive -->
+
+
+{% endblock %}
