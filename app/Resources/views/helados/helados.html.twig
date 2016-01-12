@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Helados {% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+
+<!-- TABLE: LATEST ORDERS -->
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Helados</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table no-margin">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Descripcion</th>
+                    <th>Cantidad Bolas</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for helado in helados %}
+                    <tr>
+                        <td><a href="helados/{{ helado.pro_id }}">{{ helado.pro_id }}</a></td>
+                        <td>{{ helado.pro_nombre }}</td>
+                        <td><span class="">{{ helado.pro_tipo }}</span></td>
+                        <td>
+                            {{ helado.pro_descripcion }}
+                        </td>
+                        <td>
+                            {{ helado.pro_cant_bol }}
+                        </td>
+                        <td>
+                            <a href="/helados/edit/{{ helado.pro_id }}" type="submit" class="btn btn-primary">Editar</a>
+                            <a href="/helados/delete/{{ helado.pro_id }}" type="submit" class="btn btn-danger  ">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="box-footer">
+                <div class="col-md-1">
+                    <a href="/helados/create" type="submit" class="btn btn-primary">Crear Nuevo</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.table-responsive -->
+
+
+{% endblock %}

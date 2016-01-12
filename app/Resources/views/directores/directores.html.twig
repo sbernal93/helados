@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Directores {% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+
+    <!-- TABLE: LATEST ORDERS -->
+    <div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Directores</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+    <div class="table-responsive">
+        <table class="table no-margin">
+            <thead>
+            <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Fecha Ingreso</th>
+                <th>Pais de Nacimiento</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for director in directores %}
+                <tr>
+                    <td><a href="directores/{{ director.di_cedula }}">{{ director.di_cedula }}</a></td>
+                    <td>{{ director.di_nombre }} {{ director.di_seg_nom }}</td>
+                    <td><span class="">{{ director.di_apellido }} {{ director.di_seg_ape }}</span></td>
+                    <td>
+                        {{ director.di_fecha_ing }}
+                    </td>
+                    <td>
+                        {{ director.di_pais_nacim }}
+                    </td>
+                    <td>
+                        <a href="/directores/edit/{{ director.di_cedula }}" type="submit" class="btn btn-primary">Editar</a>
+                        <a href="/directores/delete/{{ director.di_cedula }}" type="submit" class="btn btn-danger  ">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="box-footer">
+            <div class="col-md-1">
+                <a href="/directores/create" type="submit" class="btn btn-primary">Crear Nuevo</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.table-responsive -->
+
+
+{% endblock %}

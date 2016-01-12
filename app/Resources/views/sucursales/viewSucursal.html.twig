@@ -1,0 +1,147 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Sucursal {{ sucursal.su_id }} {% endblock %}
+{% block optionalDescription %}{{ sucursal.su_nombre }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Informacion General</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form">
+                    <div class="box-body">
+                        <div class="col-md-1">
+                            <label >ID: </label>
+                        </div>
+                        <div class="col-md-2">
+                            <p>{{ sucursal.su_id }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-1">
+                            <label >Nombre: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.su_nombre }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-1">
+                            <label >Telefono: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.te_numero }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <label >Fecha de Apertura: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.su_fecha_apert }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <label >Pais: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.pais }}</p>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label >Ciudad: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.ciudad }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <label >Codigo Postal: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.su_cod_post }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <label >Urbanizacion: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.su_urbanizacion }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <label >Calle: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.su_calle }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <label >Edificio: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.su_edificio }}</p>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <label >Referencia: </label>
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="col-md-8">
+                            <p>{{ sucursal.su_ref_dir }}</p>
+                        </div>
+
+
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="col-md-1">
+                            <a href="/sucursales/edit/{{ sucursal.su_id }}" type="submit" class="btn btn-primary">Editar</a>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div><!-- /col -->
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Pedidos</h3>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                            <tr>
+                                <th>Numero</th>
+                                <th>Fecha Solicitada</th>
+                                <th>Fecha Recepcion</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for pedido in pedidos %}
+                                <tr>
+                                    <td><a href="pedido/{{ pedido.pe_num_orden }}">{{ pedido.pe_num_orden }}</a></td>
+                                    <td>{{ pedido.pe_fecha_solic }}</td>
+                                    <td>{{ pedido.pe_fecha_recep }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+            </div><!-- /.box-header -->
+        </div><!-- /.box -->
+    </div><!-- /col -->
+</div><!-- /row -->
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}

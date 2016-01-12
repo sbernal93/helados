@@ -1,0 +1,64 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Sucursales {% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+
+    <!-- TABLE: LATEST ORDERS -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Sucursales</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Postal</th>
+                    <th>Pais</th>
+                    <th>Ciudad</th>
+                    <th>Fecha Apertura</th>
+                    <th>Accion</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for sucursal in sucursales %}
+                  <tr>
+                    <td><a href="sucursales/{{ sucursal.su_id }}">{{ sucursal.su_id }}</a></td>
+                    <td>{{ sucursal.su_nombre }}</td>
+                    <td><span class="">{{ sucursal.su_cod_post }}</span></td>
+                    <td>
+                      {{ sucursal.pais }}
+                    </td>
+                    <td>
+                      {{ sucursal.ciudad }}
+                    </td>
+                    <td>
+                      {{ sucursal.su_fecha_apert }}
+                    </td>
+                    <td>
+                      <a href="/sucursales/edit/{{ sucursal.su_id }}" type="submit" class="btn btn-primary">Editar</a>
+                      <a href="/sucursales/delete/{{ sucursal.su_id }}" type="submit" class="btn btn-danger  ">Eliminar</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+                <div class="box-footer">
+                  <div class="col-md-1">
+                    <a href="/sucursales/create" type="submit" class="btn btn-primary">Crear Nuevo</a>
+                  </div>
+                </div>
+              </div>
+              <!-- /.table-responsive -->
+
+
+{% endblock %}

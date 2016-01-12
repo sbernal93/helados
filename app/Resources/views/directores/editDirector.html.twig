@@ -1,0 +1,140 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Editar Director{% endblock %}
+{% block optionalDescription %}{{ director.di_cedula }}{% endblock %}
+{% block content %}
+    <div class="alert alert-danger alert-dismissable" id="alert" hidden>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4>Uno de los campos obligatorios se encuentra vacio, revise la informacion e intente de nuevo
+            <i class="icon fa fa-ban"></i></h4>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Editar Director</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id="editDirectorForm">
+                    <div class="box-body">
+                        <div class="form-group col-md-6">
+                            <label for="inputCedula">Cedula:</label>
+                            <input type="text" class="form-control" id="inputCedula" value="{{ director.di_cedula }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputNombre">Nombre:</label>
+                            <input type="text" class="form-control" id="inputNombre" value="{{ director.di_nombre }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputSegundoNombre">SegundoNombre:</label>
+                            <input type="text" class="form-control" id="inputSegundoNombre" value="{{ director.di_seg_nom }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputApellido">Apellido:</label>
+                            <input type="text" class="form-control" id="inputApellido" value="{{ director.di_apellido }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputSegundoApellido">SegundoApellido:</label>
+                            <input type="text" class="form-control" id="inputSegundoApellido" value="{{ director.di_seg_ape }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCorreo">Correo:</label>
+                            <input type="text" class="form-control" id="inputCorreo" value="{{ director.di_correo }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <!-- Date range -->
+                        <div class="form-group col-md-6">
+                            <label>Fecha de Ingreso:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="fechaIngreso" value="{{ director.di_fecha_ing }}">
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        <!-- Date range -->
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPaisNacimiento">Pais de Nacimiento:</label>
+                            <input type="text" class="form-control" id="inputPaisNacimiento" value="{{ director.di_pais_nacim }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPais">Pais de Residencia:</label>
+                            <input type="text" class="form-control" id="inputPais" value="{{ director.pais }}">
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCiudad">Ciudad de Residencia:</label>
+                            <input type="text" class="form-control" id="inputCiudad" value="{{ director.ciudad }}">
+                        </div>
+
+
+
+
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div><!-- /col -->
+    </div><!-- /row -->
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(function () {
+            //Datemask dd/mm/yyyy
+            $("#fechaIngreso").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        });
+        $(document).ready(function () {
+            $("#editDirectorForm").submit(function (event) {
+                if($("#inputCedula").val().length == 0 ||
+                        $("#inputApellido").val().length == 0 ||
+                        $("#inputNombre").val().length == 0 ||
+                        $("#inputCorreo").val().length == 0 ||
+                        $("#inputPaisNacimiento").val().length == 0 ||
+                        $("#fechaIngreso").val().length == 0)
+                {
+                    $("#alert").show();
+                    event.preventDefault();
+                }
+                else {
+                    $.ajax({
+                        url: "/directores/update?cedula=" + $('#inputCedula').val() + "&" +
+                        "nombre=" + $("#inputNombre").val() + "&" +
+                        "apellido=" + $("#inputApellido").val() + "&" +
+                        "correo=" + $("#inputCorreo").val() + "&" +
+                        "pasinacimiento=" + $("#inputPaisNacimiento").val() + "&" +
+                        "fechaingreso=" + $("#fechaIngreso").val() + "&" +
+                        "segundonombre=" + $("#inputSegundoNombre").val() + "&" +
+                        "segundoapellido=" + $("#inputSegundoApellido").val() + "&" +
+                        "pais=" + $("#inputPais").val() + "&" +
+                        "ciudad=" + $("#inputciudad").val() + "&" +
+                                "cedulaOriginal={{ director.di_cedula }}"
+                        ,
+                        method: "POST",
+                        dataType: 'json',
+                        encode: true
+                    })
+                            .done(function (data) {
+                                console.log(data);
+                            });
+                }
+
+            });
+        });
+
+    </script>
+{% endblock %}

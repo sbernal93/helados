@@ -1,0 +1,91 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Crear Helado{% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+    <div class="alert alert-danger alert-dismissable" id="alert" hidden>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4>Uno de los campos obligatorios se encuentra vacio, revise la informacion e intente de nuevo
+            <i class="icon fa fa-ban"></i></h4>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Crear Helado</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id="newHeladoForm">
+                    <div class="box-body">
+
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Nombre</label>
+                            <input type="text" class="form-control" id="inputName" >
+                        </div>
+                        <div class="col-md-12"></div>
+
+                        <div class="form-group col-md-6">
+                            <label for="inputTipo">Tipo:</label>
+                            <input type="text" class="form-control" id="inputTipo" >
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDescripcion">Descripcion:</label>
+                            <input type="text" class="form-control" id="inputDescripcion" >
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCantidadBol">Cantidad de Bolas:</label>
+                            <input type="text" class="form-control" id="inputCantidadBol" >
+                        </div>
+
+
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div><!-- /col -->
+    </div><!-- /row -->
+
+{% endblock %}
+{% block scripts %}
+    <script>
+
+        $(document).ready(function () {
+            $("#newHeladoForm").submit(function (event) {
+                if($("#inputName").val().length == 0 ||
+                        $("#inputTipo").val().length == 0 ||
+                        $("#inputDescripcion").val().length == 0)
+                {
+                    $("#alert").show();
+                }
+                else {
+                    $.ajax({
+                        url: "/helados/new?name=" + $('#inputName').val() + "&" +
+                        "tipo=" + $("#inputTipo").val() + "&" +
+                        "descripcion=" + $("#inputDescripcion").val() + "&" +
+                        "bolas=" + $("#inputCantidadBol").val() + "&"
+                        ,
+                        method: "POST",
+                        dataType: 'json',
+                        encode: true
+                    })
+                            .done(function (data) {
+                                console.log(data);
+                                window.location = "/helados";
+                            });
+                }
+
+            });
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Crear Promocion{% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+    <div class="alert alert-danger alert-dismissable" id="alert" hidden>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4>Uno de los campos obligatorios se encuentra vacio, revise la informacion e intente de nuevo
+            <i class="icon fa fa-ban"></i></h4>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Crear Promocion</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id="newPromocionForm">
+                    <div class="box-body">
+
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDescripcion">Descripcion</label>
+                            <input type="text" class="form-control" id="inputDescripcion" >
+                        </div>
+                        <div class="col-md-12"></div>
+
+                        <div class="form-group col-md-6">
+                            <label for="inputPorcDesc">Porcentaje de Descuento:</label>
+                            <input type="text" class="form-control" id="inputPorcDesc" >
+                        </div>
+                        <div class="col-md-12"></div>
+                        <!-- Date range -->
+                        <div class="form-group col-md-6">
+                            <label>Fecha de Inicio:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="fechaInic" >
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        <!-- Date range -->
+                        <div class="col-md-12"></div>
+                        <!-- Date range -->
+                        <div class="form-group col-md-6">
+                            <label>Fecha Fin:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="fechaFin" >
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        <!-- Date range -->
+
+
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div><!-- /col -->
+    </div><!-- /row -->
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(function () {
+            //Datemask dd/mm/yyyy
+            $("#fechaInic").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+            $("#fechaFin").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        });
+        $(document).ready(function () {
+            $("#newPromocionForm").submit(function (event) {
+                if($("#inputDescripcion").val().length == 0 ||
+                        $("#inputPorcDesc").val().length == 0 ||
+                        $("#fechaInic").val().length == 0 ||
+                        $("#fechaFin").val().length == 0 )
+                {
+                    $("#alert").show();
+                    event.preventDefault();
+                }
+                else {
+                    $.ajax({
+
+                        url: "/helados/{{ id }}/promocion/new?descripcion=" + $('#inputDescripcion').val() + "&" +
+                        "porcdesc=" + $("#inputPorcDesc").val() + "&" +
+                        "fechainic=" + $("#fechaInic").val() + "&" +
+                        "fechafin=" + $("#fechaFin").val() + "&" +
+                                "id={{ id }}"
+                        ,
+                        method: "POST",
+                        dataType: 'json',
+                        encode: true
+                    })
+                            .done(function (data) {
+                                console.log(data);
+                                window.location = "/helados";
+                            });
+                }
+
+            });
+        });
+
+    </script>
+{% endblock %}
