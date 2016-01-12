@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
-{% block pageHeader %}Editar Hitoria{% endblock %}
-{% block optionalDescription %}{{ historia.hi_id }}{% endblock %}
+{% block pageHeader %}Crear Lugar{% endblock %}
+{% block optionalDescription %}{% endblock %}
 {% block content %}
     <div class="alert alert-danger alert-dismissable" id="alert" hidden>
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -14,34 +14,32 @@
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Editar Historia</h3>
+                    <h3 class="box-title">Crear Lugar</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" id="editHistoriaForm">
+                <form role="form" id="editLugarForm">
                     <div class="box-body">
-                        <div class="form-group col-md-6">
-                            <label for="inputId">ID</label>
-                            <input type="text" class="form-control" id="inputId" value="{{ historia.hi_id }}" >
-                        </div>
-                        <div class="col-md-12"></div>
-                        <!-- Date range -->
-                        <div class="form-group col-md-6">
-                            <label>Fecha Ocurrido:</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="fecha" value="{{ historia.hi_fecha }}" >
-                            </div><!-- /.input group -->
-                        </div><!-- /.form group -->
-                        <!-- Date range -->
 
                         <div class="col-md-12"></div>
                         <div class="form-group col-md-6">
-                            <label for="inputEvento">Evento</label>
-                            <input type="text" class="form-control" id="inputEvento" value="{{ historia.hi_evento }}" >
+                            <label for="inputNombre">Nombre</label>
+                            <input type="text" class="form-control" id="inputNombre" >
                         </div>
                         <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputUnionEU">Union EU</label>
+                            <input type="text" class="form-control" id="inputUnionEU"  >
+                        </div>
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputTipo">Tipo</label>
+                            <input type="text" class="form-control" id="inputTipo"  >
+                        </div>
+                            <div class="col-md-12"></div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPais">Pais</label>
+                                <input type="text" class="form-control" id="inputPais"  >
+                            </div>
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">
@@ -57,25 +55,22 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        $(function () {
-            //Datemask
-            $("#fecha").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-        });
         $(document).ready(function () {
-            $("#editHistoriaForm").submit(function (event) {
-                if($("#inputEvento").val().length == 0 ||
-                        $("#inputId").val().length == 0 ||
-                        $("#fecha").val().length == 0 )
+            $("#editLugarForm").submit(function (event) {
+                if($("#inputId").val().length == 0 ||
+                        $("#inputNombre").val().length == 0 ||
+                        $("#inputTipo").val().length == 0 )
                 {
                     $("#alert").show();
                     event.preventDefault();
                 }
                 else {
                     $.ajax({
-                        url: "/historias/update?evento=" + $('#inputEvento').val() + "&" +
-                        "fecha=" + $("#fecha").val() + "&" +
-                        "newid=" + $("#inputId").val() + "&" +
-                                "id={{ historia.hi_id }}"
+                        url: "/lugares/new?" +
+                        "nombre=" + $("#inputNombre").val() + "&" +
+                        "tipo=" + $("#inputTipo").val() + "&" +
+                        "unioneu=" + $("#inputUnionEU").val() + "&" +
+                        "pais=" + $("#inputPais").val()
                         ,
                         method: "POST",
                         dataType: 'json',
@@ -83,7 +78,7 @@
                     })
                             .done(function (data) {
                                 console.log(data);
-                                window.location = "/historias";
+                                window.location = "/lugares";
                             });
                 }
 

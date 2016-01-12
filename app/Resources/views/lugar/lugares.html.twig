@@ -1,0 +1,56 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Lugares {% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+
+    <!-- TABLE: LATEST ORDERS -->
+    <div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Lugares</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+    <div class="table-responsive">
+        <table class="table no-margin">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Union EU</th>
+                <th>Temporada</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for lugar in lugares %}
+                <tr>
+                    <td><a href="lugares/{{ lugar.lu_id }}">{{ lugar.lu_id }}</a></td>
+                    <td>{{ lugar.lu_nombre }}</td>
+                    <td><span class="">{{ lugar.lu_tipo }}</span></td>
+                    <td>{{ lugar.lu_union_eu }}</td>
+                    <td>{{ lugar.lu_temporada }}</td>
+
+                    <td>
+                        <a href="/lugares/edit/{{ lugar.lu_id }}" type="submit" class="btn btn-primary">Editar</a>
+                        <a href="/lugares/delete/{{ lugar.lu_id }}" type="submit" class="btn btn-danger  ">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="box-footer">
+            <div class="col-md-1">
+                <a href="/lugares/create" type="submit" class="btn btn-primary">Crear Nuevo</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.table-responsive -->
+
+
+{% endblock %}

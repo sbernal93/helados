@@ -1,0 +1,86 @@
+{% extends "layout.html.twig" %}
+
+{% block pageHeader %}Crear Hitoria{% endblock %}
+{% block optionalDescription %}{% endblock %}
+{% block content %}
+    <div class="alert alert-danger alert-dismissable" id="alert" hidden>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4>Uno de los campos obligatorios se encuentra vacio, revise la informacion e intente de nuevo
+            <i class="icon fa fa-ban"></i></h4>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Crear Historia</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id="newHistoriaForm">
+                    <div class="box-body">
+                        <!-- Date range -->
+                        <div class="form-group col-md-6">
+                            <label>Fecha Ocurrido:</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="fecha" >
+                            </div><!-- /.input group -->
+                        </div><!-- /.form group -->
+                        <!-- Date range -->
+
+                        <div class="col-md-12"></div>
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Evento</label>
+                            <input type="text" class="form-control" id="inputEvento" >
+                        </div>
+                        <div class="col-md-12"></div>
+                    </div><!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- /.box -->
+        </div><!-- /col -->
+    </div><!-- /row -->
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(function () {
+            //Datemask
+            $("#fecha").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        });
+        $(document).ready(function () {
+            $("#newHistoriaForm").submit(function (event) {
+                if($("#inputEvento").val().length == 0 ||
+                        $("#fecha").val().length == 0 )
+                {
+                    $("#alert").show();
+                    event.preventDefault();
+                }
+                else {
+                    $.ajax({
+                        url: "/historias/new?evento=" + $('#inputEvento').val() + "&" +
+                        "fecha=" + $("#fecha").val()
+                        ,
+                        method: "POST",
+                        dataType: 'json',
+                        encode: true
+                    })
+                            .done(function (data) {
+                                console.log(data);
+                                window.location = "/historias";
+                            });
+                }
+
+            });
+        });
+
+    </script>
+{% endblock %}

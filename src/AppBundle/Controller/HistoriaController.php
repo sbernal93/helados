@@ -69,7 +69,7 @@ class HistoriaController extends Controller
     }
 
     /**
-     * @Route("/helados/edit/{id}")
+     * @Route("/historias/edit/{id}")
      */
     public function getEditHistoriaAction($id)
     {
@@ -106,7 +106,7 @@ class HistoriaController extends Controller
         $db = new HistoriaDB($this->get(Constants::DB_CONN));
         $historia = $db->findById($id);
 
-        return $this->render('historias/viewHistoria.html.twig', [
+        return $this->render('historia/viewHistoria.html.twig', [
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
             'historia' => $historia,
         ]);

@@ -49,8 +49,8 @@ class HistoriaDB implements DBConnection
 
     public function edit($fields)
     {
-        $this->conn->executeUpdate(HistoriaDB::UPDATE_HISTORIA, array(intval($fields['id']),
-            $fields['evento'],  $fields['fecha'] ));
+        $this->conn->executeUpdate(HistoriaDB::UPDATE_HISTORIA, array(intval($fields['newid']),
+            $fields['evento'],  $fields['fecha'], intval($fields['id']) ));
     }
 
     public function deleteById($id)

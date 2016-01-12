@@ -10,3 +10,5 @@
 /vendor/
 /web/bundles/
 /web/assets/vendor/
+/var/cache/*
+.idea/*
